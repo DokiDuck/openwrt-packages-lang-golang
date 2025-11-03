@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        VERSION: ['23.05', '24.10']
+        UPSTREAM: ['openwrt']
+        VERSION: ['23.05', '24.10', 'master']
 
     steps:
       - name: Checkout repo
@@ -38,7 +39,7 @@ jobs:
       - name: Prepare branch
         run: |
           cd workdir
-          git switch --orphan ${{ matrix.VERSION }} || git switch ${{ matrix.VERSION }}
+          git switch --orphan ${{ matrix.UPSTREAM }}-${{ matrix.VERSION }} || git switch ${{ matrix.UPSTREAM }}-${{ matrix.VERSION }}
           rm -rf ./*
       
       - name: Sync files
@@ -50,5 +51,5 @@ jobs:
         run: |
           cd workdir
           git add .
-          git commit -m "Sync from openwrt/packages:${{ matrix.VERSION }}" || echo "No changes to commit"
-          git push origin ${{ matrix.VERSION }} --force
+          git commit -m "Sync from ${{ matrix.UPSTREAM }}/packages:${{ matrix.VERSION }}" || echo "No changes to commit"
+          git push origin ${{ matrix.UPSTREAM }}-${{ matrix.VERSION }} --force
