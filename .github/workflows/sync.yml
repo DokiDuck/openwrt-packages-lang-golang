@@ -44,7 +44,7 @@ jobs:
       - name: Sync files
         run: |
           cd workdir
-          cp -r ../upstream/lang/golang ./
+          cp -r ../upstream/lang/golang/* ./
 
       - name: Commit and push changes
         run: |
