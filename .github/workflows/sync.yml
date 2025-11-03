@@ -23,12 +23,13 @@ jobs:
           path: workdir
           fetch-depth: 0
 
-      - name: Checkout upstream
+      - name: Checkout upstream (openwrt)
         uses: actions/checkout@v5
+        if: matrix.UPSTREAM == 'openwrt'
         with:
           path: upstream
           repository: openwrt/packages
-          ref: openwrt-${{ matrix.VERSION }}
+          ref: ${{ matrix.VERSION != 'master' && 'openwrt-' || '' + matrix.VERSION }}
           fetch-depth: 1
 
       - name: Confugure git
