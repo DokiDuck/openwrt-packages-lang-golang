@@ -29,7 +29,7 @@ jobs:
         with:
           path: upstream
           repository: openwrt/packages
-          ref: ${{ matrix.VERSION != 'master' && 'openwrt-' || '' + matrix.VERSION }}
+          ref: ${{ matrix.VERSION != 'master' && 'openwrt-' || '' }}${{ matrix.VERSION }}
           fetch-depth: 1
 
       - name: Confugure git
